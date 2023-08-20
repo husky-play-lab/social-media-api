@@ -4,21 +4,20 @@ import { ConfigService } from '@nestjs/config';
 import { DataSource } from 'typeorm';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { DataSourceOptions } from 'typeorm';
-// import { SnakeNamingStrategy } from 'libs/infra/src';
-// import path from 'path';
+import path from 'path';
 import { envPath } from '../config';
+import { SnakeNamingStrategy } from '@libs/share/database';
 
 dotenv.config({ path: envPath });
-// if (!process.env.APP_NAME) {
-//   const pathEnv = process.env.ENV ? `.env.${process.env.ENV.trim()}` : '.env';
-//   const migrationEnvPath = path.join(__dirname + `/../../../${pathEnv}`);
-//   dotenv.config({ path: migrationEnvPath });
-// }
+if (!process.env.APP_NAME) {
+  const migrationEnvPath = path.join(__dirname + `/../../.env`);
+  dotenv.config({ path: migrationEnvPath });
+}
 
 const configService = new ConfigService({});
 
 export const typeormConfig: DataSourceOptions & TypeOrmModuleOptions = {
-  entities: [__dirname + '/../entities/*{.ts,.js}'],
+  entities: [__dirname + '/../domain/**/*{.ts,.js}'],
   migrations: [__dirname + '/../migrations/*{.ts,.js}'],
   type: 'postgres',
   host: configService.get('DB_HOST'),
@@ -28,7 +27,7 @@ export const typeormConfig: DataSourceOptions & TypeOrmModuleOptions = {
   database: configService.get('DB_DATABASE'),
   migrationsRun: false,
   logging: false,
-  // namingStrategy: new SnakeNamingStrategy(),
+  namingStrategy: new SnakeNamingStrategy(),
   migrationsTransactionMode: 'each',
   synchronize: false,
 };

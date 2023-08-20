@@ -10,7 +10,7 @@
   "monorepo": true,
   "root": "apps/bff-service",
   "projects": {
-    "bff-service": {
+    "@apps/bff-service": {
       "type": "application",
       "root": "apps/bff-service",
       "entryFile": "main",
@@ -19,13 +19,22 @@
         "tsConfigPath": "apps/bff-service/tsconfig.app.json"
       }
     },
-    "sso-service": {
+    "@apps/sso-service": {
       "type": "application",
       "root": "apps/sso-service",
       "entryFile": "main",
       "sourceRoot": "apps/sso-service/src",
       "compilerOptions": {
         "tsConfigPath": "apps/sso-service/tsconfig.app.json"
+      }
+    },
+    "@libs/share": {
+      "type": "library",
+      "root": "libs/share",
+      "entryFile": "index",
+      "sourceRoot": "libs/share/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/share/tsconfig.lib.json"
       }
     }
   }
