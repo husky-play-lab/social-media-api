@@ -6,9 +6,9 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { DataSourceOptions } from 'typeorm';
 // import { SnakeNamingStrategy } from 'libs/infra/src';
 // import path from 'path';
-// import { envPath } from '../../config';
+import { envPath } from '../config';
 
-dotenv.config({ path: 'apps/sso-service/.env' });
+dotenv.config({ path: envPath });
 // if (!process.env.APP_NAME) {
 //   const pathEnv = process.env.ENV ? `.env.${process.env.ENV.trim()}` : '.env';
 //   const migrationEnvPath = path.join(__dirname + `/../../../${pathEnv}`);
