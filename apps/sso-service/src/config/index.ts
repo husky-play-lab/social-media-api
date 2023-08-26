@@ -4,7 +4,7 @@ import { IsNotEmpty, IsString, validateSync } from 'class-validator';
 import dotenv from 'dotenv';
 
 export const envPath = './apps/sso-service/.env';
-dotenv.config({ path: envPath });
+dotenv.config({});
 
 export class EnvironmentVariables {
   @IsNotEmpty()
