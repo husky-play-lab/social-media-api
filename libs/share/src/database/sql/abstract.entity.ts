@@ -7,9 +7,6 @@ import {
 } from 'typeorm';
 
 export abstract class AbstractEntity<Entity> extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
-
   @CreateDateColumn()
   createdAt: Date;
 
@@ -23,4 +20,18 @@ export abstract class AbstractEntity<Entity> extends BaseEntity {
     super();
     if (partial) Object.assign(this, partial);
   }
+}
+
+export abstract class AbstractEntityUuid<
+  Entity,
+> extends AbstractEntity<Entity> {
+  @PrimaryGeneratedColumn('uuid')
+  id: number;
+}
+
+export abstract class AbstractEntityIntId<
+  Entity,
+> extends AbstractEntity<Entity> {
+  @PrimaryGeneratedColumn()
+  id: number;
 }

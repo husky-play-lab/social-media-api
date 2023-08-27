@@ -4,7 +4,7 @@
   "sourceRoot": "apps/bff-service/src",
   "compilerOptions": {
     "deleteOutDir": true,
-    "webpack": true,
+    "webpack": false,
     "tsConfigPath": "apps/bff-service/tsconfig.app.json"
   },
   "monorepo": true,

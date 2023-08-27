@@ -1,9 +1,9 @@
-import { AbstractEntity } from '@libs/share/database';
+import { AbstractEntityUuid } from '@libs/share/database';
 import { BeforeInsert, Column, Entity } from 'typeorm';
 import bcrypt from 'bcryptjs';
 
 @Entity({ name: 'user' })
-export class UserEntity extends AbstractEntity<UserEntity> {
+export class UserEntity extends AbstractEntityUuid<UserEntity> {
   @Column({ unique: true })
   email: string;
 

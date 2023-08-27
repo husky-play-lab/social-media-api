@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createMachine } from 'xstate';
 
 export const machine = createMachine(
@@ -7,30 +8,36 @@ export const machine = createMachine(
     states: {
       CHECK_ACCOUNT: {
         on: {
-          account_not_exist: {
-            target: 'EMAIL_VERIFICATION',
-          },
-          account_exist: {
-            target: 'THROW_ERROR',
-          },
-        },
-      },
-      EMAIL_VERIFICATION: {
-        entry: {
-          type: 'send_email_verification',
-          params: {},
-        },
-        on: {
-          verify: {
-            target: 'ACCOUNT_CREATED',
-          },
-          wait_3_days: {
-            target: 'CANCEL_VERIFICATION',
-          },
+          check_account: [
+            {
+              target: 'THROW_ERROR',
+              cond: 'account_exist',
+            },
+            {
+              target: 'EMAIL_VERIFICATION',
+            },
+          ],
         },
       },
       THROW_ERROR: {
         type: 'final',
+      },
+      EMAIL_VERIFICATION: {
+        entry: {
+          type: 'sendEmailVerification',
+          params: {},
+        },
+        on: {
+          verify: [
+            {
+              target: 'ACCOUNT_CREATED',
+              cond: 'within_3_days',
+            },
+            {
+              target: 'CANCEL_VERIFICATION',
+            },
+          ],
+        },
       },
       ACCOUNT_CREATED: {
         on: {
@@ -39,12 +46,10 @@ export const machine = createMachine(
           },
         },
       },
-      CANCEL_VERIFICATION: {},
+      CANCEL_VERIFICATION: {
+        type: 'final',
+      },
       PASSWORD_FILLED: {
-        entry: {
-          type: 'send_welcome_email',
-          params: {},
-        },
         on: {
           filling_profile: {
             target: 'PROFILE_FILLED',
@@ -53,7 +58,7 @@ export const machine = createMachine(
       },
       PROFILE_FILLED: {
         entry: {
-          type: 'send_guidance_email',
+          type: 'sendWelcomeEmail',
           params: {},
         },
         type: 'final',
@@ -64,17 +69,19 @@ export const machine = createMachine(
   },
   {
     actions: {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      send_welcome_email: (context, event) => {},
+      sendEmailVerification: (context, event) => {},
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      send_guidance_email: (context, event) => {},
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      send_email_verification: (context, event) => {},
+      sendWelcomeEmail: (context, event) => {},
     },
     services: {},
-    guards: {},
+    guards: {
+      account_exist: (context, event) => {
+        return false;
+      },
+      within_3_days: (context, event) => {
+        return false;
+      },
+    },
     delays: {},
   },
 );

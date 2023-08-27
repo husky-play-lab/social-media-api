@@ -16,8 +16,10 @@ if (!process.env.APP_NAME) {
 
 const configService = new ConfigService({});
 
+console.log(__dirname);
+
 export const typeormConfig: DataSourceOptions & TypeOrmModuleOptions = {
-  entities: [__dirname + '/../domain/**/*{.ts,.js}'],
+  entities: [__dirname + '/../domain/**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/../migrations/*{.ts,.js}'],
   type: 'postgres',
   host: configService.get('DB_HOST'),
