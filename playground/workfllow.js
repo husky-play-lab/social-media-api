@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createMachine } from 'xstate';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { createMachine, interpret } = require('xstate');
 
-export const onboardingMachine = createMachine(
+const onboardingMachine = createMachine(
   {
     id: 'New Machine',
     initial: 'CHECK_ACCOUNT',
@@ -76,8 +77,8 @@ export const onboardingMachine = createMachine(
     services: {},
     guards: {
       checkAccountExist: (context, event) => {
-        const { isEmailExist } = event.query;
-        return isEmailExist;
+        console.log(event.query);
+        return true;
       },
       verifyWithin3Days: (context, event) => {
         return false;
@@ -86,3 +87,12 @@ export const onboardingMachine = createMachine(
     delays: {},
   },
 );
+
+const onboardingInstance = interpret(onboardingMachine)
+  .onTransition((state) => console.log(state.value))
+  .start();
+
+onboardingInstance.send({
+  type: 'check_account',
+  query: { email: 'phonghiavan@gmail.com' },
+});

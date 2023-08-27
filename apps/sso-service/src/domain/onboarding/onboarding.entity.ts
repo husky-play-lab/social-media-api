@@ -6,6 +6,9 @@ import { Column, Entity } from 'typeorm';
   name: 'onboarding',
 })
 export class OnboardingEntity extends AbstractEntityIntId<OnboardingEntity> {
+  @Column({})
+  email: string;
+
   @Column({ default: EOnboardingState.CHECK_ACCOUNT })
   currentState: EOnboardingState;
 }

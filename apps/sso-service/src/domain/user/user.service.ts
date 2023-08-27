@@ -1,25 +1,18 @@
+import { AbstractRepository } from '@libs/share';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
 
-export interface CreateUserDto {
-  email: string;
-  password: string;
-}
-
-export const IUserService = Symbol.for('IUserService');
-export interface IUserService {
-  create(data: CreateUserDto): Promise<UserEntity>;
-}
-
 @Injectable()
-export class UserService implements IUserService {
+export class UserService extends AbstractRepository<UserEntity> {
   constructor(
-    @InjectRepository(UserEntity) private repository: Repository<UserEntity>,
-  ) {}
+    @InjectRepository(UserEntity) _repository: Repository<UserEntity>,
+  ) {
+    super(_repository);
+  }
 
-  create(data: CreateUserDto): Promise<UserEntity> {
-    return this.repository.create(data).save();
+  findByEmail(email: string) {
+    return this._repository.findOne({ where: { email } });
   }
 }
