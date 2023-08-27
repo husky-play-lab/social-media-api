@@ -23,6 +23,12 @@
       ],
       "@libs/share/*": [
         "libs/share/src/*"
+      ],
+      "@libs/adapter": [
+        "libs/adapter/src"
+      ],
+      "@libs/adapter/*": [
+        "libs/adapter/src/*"
       ]
     },
     "esModuleInterop": true

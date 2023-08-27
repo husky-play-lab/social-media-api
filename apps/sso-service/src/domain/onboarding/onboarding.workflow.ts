@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { sendEmail } from '@libs/adapter/sendgrid/sendgrid.adapter';
 import { createMachine } from 'xstate';
 
 export const onboardingMachine = createMachine(
@@ -69,7 +70,11 @@ export const onboardingMachine = createMachine(
   },
   {
     actions: {
-      sendEmailVerification: (context, event) => {},
+      sendEmailVerification: async (context, event) => {
+        // console.log('entry action: sendEmailVerification');
+        // send email
+        sendEmail();
+      },
 
       sendWelcomeEmail: (context, event) => {},
     },
