@@ -11,4 +11,6 @@ export class OnboardingEntity extends AbstractEntityIntId<OnboardingEntity> {
 
   @Column({ default: EOnboardingState.CHECK_ACCOUNT })
   currentState: EOnboardingState;
+
+  // code
 }

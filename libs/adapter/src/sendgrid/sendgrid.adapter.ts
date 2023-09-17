@@ -1,12 +1,19 @@
 import sgMail from '@sendgrid/mail';
 
-export const sendEmail = () => {
+export interface ISendEmail {
+  email: string;
+}
+
+const API_KEY =
+  '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';
+sgMail.setApiKey(API_KEY);
+
+export const sendEmail = (data: ISendEmail) => {
   const msg = {
-    to: 'test@example.com',
-    from: 'test@example.com',
-    subject: 'Sending with Twilio SendGrid is Fun',
-    text: 'and easy to do anywhere, even with Node.js',
-    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+    to: data.email,
+    from: 'tech@aiquant.space',
+    subject: 'Email Verification',
+    html: '<strong>Please click button to verify</strong>',
   };
 
   sgMail.send(msg);

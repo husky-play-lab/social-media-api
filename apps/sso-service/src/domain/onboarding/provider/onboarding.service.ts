@@ -31,13 +31,48 @@ export class OnboardingService extends AbstractRepository<OnboardingEntity> {
       })
       .start();
 
-    const foundUser = this.userService.findByEmail(email);
+    const foundUser = await this.userService.findByEmail(email);
 
     workflow.send({
       type: 'check_account',
-      query: { isEmailExist: foundUser ? false : true },
+      query: {
+        isEmailExist: foundUser ? false : true,
+        email,
+      },
     });
 
     return onboarding;
+  }
+
+  async findLatestOnboarding(data) {
+    const { email } = data;
+    return this._repository.findOne({
+      where: { email },
+      order: { createdAt: 'DESC' },
+    });
+  }
+
+  async createUser(data: Dto.CreateUserDto) {
+    const { email } = data;
+
+    const onboarding = await this.findLatestOnboarding({ email });
+
+    const workflow = interpret(onboardingMachine)
+      .onTransition(async (state) => {
+        onboarding.currentState = state.value as EOnboardingState;
+        await onboarding.save();
+      })
+      .start(onboarding.currentState);
+
+    const user = await this.userService.createUserWithEmail(email);
+
+    workflow.send({
+      type: 'verify',
+      query: {
+        verifyWithin3Days: true,
+      },
+    });
+
+    return user;
   }
 }

@@ -71,9 +71,8 @@ export const onboardingMachine = createMachine(
   {
     actions: {
       sendEmailVerification: async (context, event) => {
-        // console.log('entry action: sendEmailVerification');
-        // send email
-        sendEmail();
+        const { email } = event.query;
+        sendEmail({ email });
       },
 
       sendWelcomeEmail: (context, event) => {},
@@ -85,7 +84,7 @@ export const onboardingMachine = createMachine(
         return isEmailExist;
       },
       verifyWithin3Days: (context, event) => {
-        return false;
+        return event.query.verifyWithin3Days;
       },
     },
     delays: {},
