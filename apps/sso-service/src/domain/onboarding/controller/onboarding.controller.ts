@@ -3,11 +3,11 @@ import { OnboardingService } from '../provider/onboarding.service';
 import * as Dto from '../dto';
 import { SerializerInterceptor } from '@libs/share/serialization';
 
+@UseInterceptors(SerializerInterceptor)
 @Controller('/onboardings')
 export class OnboardingController {
   constructor(private onboardingService: OnboardingService) {}
 
-  @UseInterceptors(SerializerInterceptor)
   @Post()
   initWorkflow(@Body() data: Dto.CreateOnboardingDto) {
     return this.onboardingService.initWorkflow(data);
@@ -18,7 +18,8 @@ export class OnboardingController {
     return this.onboardingService.createUser(data);
   }
 
-  // load workflow instance => change state => save current state database
-  @Patch()
-  updateById() {}
+  @Patch('/update-user')
+  updateUser(@Body() data: Dto.UpdateUserDto) {
+    return this.onboardingService.updateUser(data);
+  }
 }

@@ -64,13 +64,41 @@ export class OnboardingService extends AbstractRepository<OnboardingEntity> {
       })
       .start(onboarding.currentState);
 
-    const user = await this.userService.createUserWithEmail(email);
+    const user = await this.userService.createUserWithEmail(data);
 
     workflow.send({
       type: 'verify',
       query: {
         verifyWithin3Days: true,
       },
+    });
+
+    workflow.send({
+      type: 'filling_password',
+    });
+
+    return user;
+  }
+
+  async updateUser(data: Dto.UpdateUserDto) {
+    const { email, firstName, lastName } = data;
+    const onboarding = await this.findLatestOnboarding({ email });
+
+    const workflow = interpret(onboardingMachine)
+      .onTransition(async (state) => {
+        onboarding.currentState = state.value as EOnboardingState;
+        await onboarding.save();
+      })
+      .start(onboarding.currentState);
+
+    let user = await this.userService.findByEmail(email);
+    user = await this.userService.updateById(user.id, {
+      firstName,
+      lastName,
+    });
+
+    workflow.send({
+      type: 'filling_profile',
     });
 
     return user;

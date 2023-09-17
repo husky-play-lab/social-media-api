@@ -16,9 +16,11 @@ export class UserService extends AbstractRepository<UserEntity> {
     return this._repository.findOne({ where: { email } });
   }
 
-  async createUserWithEmail(email: string) {
+  async createUserWithEmail(data) {
+    const { email, password } = data;
+
     const foundUser = await this.findByEmail(email);
     if (foundUser) throw new BadRequestException('User exist');
-    return this.create({ email });
+    return this.create({ email, password });
   }
 }
