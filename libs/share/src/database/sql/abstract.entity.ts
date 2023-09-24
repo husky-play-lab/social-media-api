@@ -26,7 +26,7 @@ export abstract class AbstractEntityUuid<
   Entity,
 > extends AbstractEntity<Entity> {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 }
 
 export abstract class AbstractEntityIntId<

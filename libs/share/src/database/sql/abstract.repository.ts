@@ -54,7 +54,10 @@ export class AbstractRepository<Entity extends ObjectLiteral>
     return await this._repository.insert(entity);
   }
 
-  async updateById(id: number, doc: DeepPartial<Entity>): Promise<any> {
+  async updateById(
+    id: number | string,
+    doc: DeepPartial<Entity>,
+  ): Promise<any> {
     const foundInstance = await this.findById(id);
     _.keys(doc).forEach((key) => {
       _.set(foundInstance, key, doc[key]);

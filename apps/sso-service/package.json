@@ -15,7 +15,7 @@
     "test": "ENV=test jest --maxWorkers=1 --detectOpenHandles"
   },
   "dependencies": {
-    "@nestjs/jwt": "^10.0.3",
+    "@nestjs/jwt": "^10.1.1",
     "@nestjs/passport": "^9.0.3",
     "@types/bcryptjs": "^2.4.2",
     "bcryptjs": "^2.4.3",
