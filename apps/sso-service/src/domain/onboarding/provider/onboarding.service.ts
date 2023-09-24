@@ -6,7 +6,7 @@ import { OnboardingEntity } from '../onboarding.entity';
 import * as Dto from '../dto';
 import { onboardingMachine } from '../onboarding.workflow';
 import { interpret } from 'xstate';
-import { UserService } from '../../user/user.service';
+import { UserService } from '../../user/provider/user.service';
 import { EOnboardingState } from '@libs/share/interfaces/sso.interface';
 
 @Injectable()
