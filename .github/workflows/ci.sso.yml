@@ -2,6 +2,12 @@ name: Continous Integration for SSO service
 
 on:
   push:
+    paths:
+      - 'apps/sso-service/**'
+      - 'Dockerfile.sso'
+      - 'libs/**'
+      - '.github/workflows/ci.sso.yml'
+      - '.github/workflows/cd.sso.yml'
     branches: [main]
 
 jobs:
