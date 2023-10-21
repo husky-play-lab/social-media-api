@@ -17,3 +17,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+
+      - name: Install Yarn Package Manager
+        run: npm install -g yarn
+
+      - name: Run Lint
+        run: yarn lint
