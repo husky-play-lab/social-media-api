@@ -26,21 +26,27 @@ jobs:
           username: ${{ env.DOCKERHUB_USERNAME }}
           password: ${{ env.DOCKERHUB_PASSWORD }}
 
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
-        env:
-          REPOSITORY_NAME: ${{ github.event.repository.name }}
-        with:
-          images: huskytechlab
-          tags: |
-            type=sha,prefix=${{ env.REPOSITORY_NAME }}-sso-
-            type=raw,value=${{ env.REPOSITORY_NAME }}-sso-latest
+      - name: Push image
+        run: |
+          export IMAGE_NAME=$AR_REGION-docker.pkg.dev/$DOCKER_IMAGE_REPOSITORY/$ENVIRONMENT/${{ github.event.repository.name }}:$GITHUB_SHA
+          docker build -t $IMAGE_NAME --build-arg ENV_TAG=$ENVIRONMENT .
+          docker push $IMAGE_NAME
 
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: ./Dockerfile.sso
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
+      # - name: Docker meta
+      #   id: meta
+      #   uses: docker/metadata-action@v4
+      #   env:
+      #     REPOSITORY_NAME: ${{ github.event.repository.name }}
+      #   with:
+      #     images: huskytechlab
+      #     tags: |
+      #       type=sha,prefix=${{ env.REPOSITORY_NAME }}-sso-
+      #       type=raw,value=${{ env.REPOSITORY_NAME }}-sso-latest
+
+      # - name: Build and push
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile.sso
+      #     push: true
+      #     tags: ${{ steps.meta.outputs.tags }}
