@@ -28,8 +28,8 @@ jobs:
 
       - name: Push image
         run: |
-          export IMAGE_NAME=$AR_REGION-docker.pkg.dev/$DOCKER_IMAGE_REPOSITORY/$ENVIRONMENT/${{ github.event.repository.name }}:$GITHUB_SHA
-          docker build -t $IMAGE_NAME --build-arg ENV_TAG=$ENVIRONMENT .
+          export IMAGE_NAME=huskytechlab/${{ github.event.repository.name }}:$GITHUB_SHA
+          docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
 
       # - name: Docker meta
