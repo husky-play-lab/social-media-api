@@ -31,4 +31,4 @@ jobs:
       #   run: yarn test
 
       - name: Build
-        run: yarn build
+        run: yarn build @apps/sso-service
