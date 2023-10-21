@@ -26,3 +26,9 @@ jobs:
 
       - name: Install dependencies
         run: yarn install && yarn workspace @apps/sso-service install
+
+      # - name: Test
+      #   run: yarn test
+
+      - name: Build
+        run: yarn build
