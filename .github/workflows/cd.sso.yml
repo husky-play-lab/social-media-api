@@ -41,6 +41,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: Dockerfile
+          file: ./Dockerfile.sso
           push: true
           tags: ${{ steps.meta.outputs.tags }}
