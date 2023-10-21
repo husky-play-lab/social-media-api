@@ -11,6 +11,8 @@ async function bootstrap() {
   await app.startAllMicroservices();
 
   const { logInfo } = setUpApplication(app);
+  console.log('change sso code');
+
   await app.listen(process.env.PORT);
 
   logInfo();
