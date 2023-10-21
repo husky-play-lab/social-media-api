@@ -4,8 +4,7 @@ export interface ISendEmail {
   email: string;
 }
 
-const API_KEY =
-  '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';
+const API_KEY = 'xxx';
 sgMail.setApiKey(API_KEY);
 
 export const sendEmail = (data: ISendEmail) => {
