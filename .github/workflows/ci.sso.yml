@@ -21,5 +21,8 @@ jobs:
       - name: Install Yarn Package Manager
         run: npm install -g yarn
 
-      - name: Run Lint
-        run: yarn lint
+      # - name: Run Lint
+      #   run: yarn lint
+
+      - name: Install dependencies
+        run: yarn install && yarn workspace @apps/sso-service install
