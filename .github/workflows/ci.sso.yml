@@ -1,5 +1,9 @@
 name: Continous Integration for SSO service
 
+on:
+  push:
+    branches: [main]
+
 jobs:
   build-test:
     name: Build & Test
