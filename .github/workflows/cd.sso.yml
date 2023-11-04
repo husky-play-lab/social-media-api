@@ -41,7 +41,7 @@ jobs:
       #     docker build -t $IMAGE_NAME -f Dockerfile.sso .
       #     docker push $IMAGE_NAME
 
-      - name: Docker meta
+      - name: Docker meta 
         id: meta
         uses: docker/metadata-action@v4
         env:
@@ -51,6 +51,9 @@ jobs:
           tags: |
             type=sha,prefix=${{ env.REPOSITORY_NAME }}-sso-
             type=raw,value=${{ env.REPOSITORY_NAME }}-sso-latest
+
+      - name: Debug Tags
+        run: echo "Tags: ${{ steps.meta.outputs.tags }}"
 
       - name: Build and push
         uses: docker/build-push-action@v4
