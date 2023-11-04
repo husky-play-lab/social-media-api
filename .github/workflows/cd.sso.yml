@@ -41,7 +41,7 @@ jobs:
         env:
           REPOSITORY_NAME: ${{ github.event.repository.name }}
         with:
-          images: huskytechlab/media-sso-service
+          images: huskytechlab/social-media
           tags: |
             type=sha,prefix=${{ env.REPOSITORY_NAME }}-sso-
             type=raw,value=${{ env.REPOSITORY_NAME }}-sso-latest
@@ -53,31 +53,3 @@ jobs:
           file: Dockerfile.sso
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-
-      # - name: Push image
-      #   run: |
-      #     export IMAGE_NAME=huskytechlab/${{ github.event.repository.name }}-sso:$GITHUB_SHA
-      #     docker build -t $IMAGE_NAME -f Dockerfile.sso .
-      #     docker push $IMAGE_NAME
-
-      # - name: Docker meta
-      #   id: meta
-      #   uses: docker/metadata-action@v4
-      #   env:
-      #     REPOSITORY_NAME: ${{ github.event.repository.name }}
-      #   with:
-      #     images: huskytechlab
-      #     tags: |
-      #       type=sha,prefix=${{ env.REPOSITORY_NAME }}-sso-
-      #       type=raw,value=${{ env.REPOSITORY_NAME }}-sso-latest
-
-      # - name: Debug Tags
-      #   run: echo "Tags: ${{ steps.meta.outputs.tags }}"
-
-      # - name: Build and push
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #     context: .
-      #     file: Dockerfile.sso
-      #     push: true
-      #     tags: ${{ steps.meta.outputs.tags }}
