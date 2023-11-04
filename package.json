@@ -24,6 +24,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./apps/social-media-api/test/jest-e2e.json",
+    "start:dev:bff": "yarn start:dev @apps/bff-service",
     "start:dev:sso": "yarn start:dev @apps/sso-service",
     "proto:generate": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=. ./protos/*.proto --ts_proto_opt=nestJs=true --ts_proto_opt=addGrpcMetadata=true --ts_proto_opt=emitImportedFiles=false"
   },
