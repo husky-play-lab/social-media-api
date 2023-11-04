@@ -41,7 +41,7 @@ jobs:
         env:
           REPOSITORY_NAME: ${{ github.event.repository.name }}
         with:
-          images: huskytechlab
+          images: huskytechlab/huskytechlab
           tags: |
             type=sha,prefix=${{ env.REPOSITORY_NAME }}-sso-
             type=raw,value=${{ env.REPOSITORY_NAME }}-sso-latest
