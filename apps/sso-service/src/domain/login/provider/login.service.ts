@@ -23,16 +23,19 @@ export class LoginService extends AbstractRepository<LoginEntity> {
   }
 
   async login(data: Dto.LoginDto) {
+    // console.log(data);
+
     const { email, password } = data;
-
-    // find user
     const user = await this.userService.findByEmail(email);
-    if (!user) throw new NotFoundException('Invalid credentials');
-
+    if (!user)
+      return {
+        id: null,
+        userId: null,
+        jwt: null,
+      };
     // compare password
     const isMatched = bcrypt.compare(password, user.password);
     if (!isMatched) throw new ForbiddenException('Invalid credentials');
-
     // create jwt
     const payload = {
       iss: process.env.SSO_API_HOST,
@@ -41,7 +44,6 @@ export class LoginService extends AbstractRepository<LoginEntity> {
       userId: user.id,
     };
     const jwt = await this.jwtService.signAsync(payload);
-
     return await this.create({
       userId: user.id,
       jwt,

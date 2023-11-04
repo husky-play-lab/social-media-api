@@ -1,7 +1,6 @@
-import { Controller, UseInterceptors } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { LoginService } from '../provider/login.service';
 // import * as Dto from '../dto';
-import { SerializerInterceptor } from '@libs/share/serialization';
 import {
   LoginPayload,
   LoginServiceController,
