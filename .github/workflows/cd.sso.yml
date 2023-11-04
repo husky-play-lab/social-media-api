@@ -35,21 +35,32 @@ jobs:
           username: ${{ env.DOCKERHUB_USERNAME }}
           password: ${{ env.DOCKERHUB_PASSWORD }}
 
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
+      - name: Build and push docker
+        run: |
+          export IMAGE_NAME=huskytechlab/media-sso-service:$GITHUB_SHA
+          docker build -t $IMAGE_NAME -f Dockerfile.sso .
+          docker tag $IMAGE_NAME huskytechlab/media-sso-service:latest
+          docker push $IMAGE_NAME
+          docker push huskytechlab/media-sso-service:latest
         env:
-          REPOSITORY_NAME: ${{ github.event.repository.name }}
-        with:
-          images: huskytechlab/social-media
-          tags: |
-            type=sha,prefix=${{ env.REPOSITORY_NAME }}-sso-
-            type=raw,value=${{ env.REPOSITORY_NAME }}-sso-latest
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: Dockerfile.sso
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
+      # - name: Docker meta
+      #   id: meta
+      #   uses: docker/metadata-action@v4
+      #   env:
+      #     REPOSITORY_NAME: ${{ github.event.repository.name }}
+      #   with:
+      #     images: huskytechlab/social-media
+      #     tags: |
+      #       type=sha,prefix=${{ env.REPOSITORY_NAME }}-sso-
+      #       type=raw,value=${{ env.REPOSITORY_NAME }}-sso-latest
+
+      # - name: Build and push
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #     context: .
+      #     file: Dockerfile.sso
+      #     push: true
+      #     tags: ${{ steps.meta.outputs.tags }}
