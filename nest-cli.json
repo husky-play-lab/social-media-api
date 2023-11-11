@@ -28,6 +28,15 @@
         "tsConfigPath": "apps/sso-service/tsconfig.app.json"
       }
     },
+    "@apps/social-service": {
+      "type": "application",
+      "root": "apps/social-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/social-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/social-service/tsconfig.app.json"
+      }
+    },
     "@libs/share": {
       "type": "library",
       "root": "libs/share",

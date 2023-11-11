@@ -26,6 +26,7 @@
     "test:e2e": "jest --config ./apps/social-media-api/test/jest-e2e.json",
     "start:dev:bff": "yarn start:dev @apps/bff-service",
     "start:dev:sso": "yarn start:dev @apps/sso-service",
+    "start:dev:social": "dotenv -e apps/social-service/.env  yarn start:dev @apps/social-service",
     "proto:generate": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=. ./protos/*.proto --ts_proto_opt=nestJs=true --ts_proto_opt=addGrpcMetadata=true --ts_proto_opt=emitImportedFiles=false"
   },
   "dependencies": {
@@ -42,6 +43,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dotenv": "^16.3.1",
+    "dotenv-cli": "^7.3.0",
     "nestjs-typeorm-paginate": "^4.0.4",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
