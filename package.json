@@ -27,6 +27,7 @@
     "start:dev:bff": "yarn start:dev @apps/bff-service",
     "start:dev:sso": "yarn start:dev @apps/sso-service",
     "start:dev:social": "dotenv -e apps/social-service/.env  yarn start:dev @apps/social-service",
+    "migration:generate:social": "dotenv -e apps/social-service/.env yarn workspace @apps/social-service migration:generate",
     "proto:generate": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=. ./protos/*.proto --ts_proto_opt=nestJs=true --ts_proto_opt=addGrpcMetadata=true --ts_proto_opt=emitImportedFiles=false"
   },
   "dependencies": {

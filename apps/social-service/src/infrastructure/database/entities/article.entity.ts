@@ -13,6 +13,6 @@ export class ArticleEntity extends AbstractEntityUuid<ArticleEntity> {
   @Column()
   title: string;
 
-  @Column({ type: 'longtext' })
+  @Column({ type: 'text' })
   content: string;
 }
